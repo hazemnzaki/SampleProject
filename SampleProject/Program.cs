@@ -6,6 +6,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.Services.AddHttpClient("AuthApi", client =>
+{
+    var apiUrl = builder.Configuration["Authentication:ApiUrl"];
+    if (!string.IsNullOrEmpty(apiUrl))
+    {
+        client.BaseAddress = new Uri(apiUrl);
+    }
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

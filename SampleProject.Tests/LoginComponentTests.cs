@@ -2,6 +2,7 @@ using Bunit;
 using Microsoft.Extensions.Configuration;
 using SampleProject.Components.Pages;
 using Microsoft.Extensions.DependencyInjection;
+using System.Net.Http;
 
 namespace SampleProject.Tests;
 
@@ -13,7 +14,8 @@ public class LoginComponentTests : Bunit.TestContext
     {
         var inMemorySettings = new Dictionary<string, string> {
             {"Authentication:Username", "admin"},
-            {"Authentication:Password", "password123"}
+            {"Authentication:Password", "password123"},
+            {"Authentication:UseApi", "false"}
         };
 
         IConfiguration configuration = new ConfigurationBuilder()
@@ -21,6 +23,7 @@ public class LoginComponentTests : Bunit.TestContext
             .Build();
 
         Services.AddSingleton(configuration);
+        Services.AddHttpClient("AuthApi");
     }
 
     [TestMethod]
