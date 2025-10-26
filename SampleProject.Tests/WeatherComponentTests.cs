@@ -6,6 +6,10 @@ namespace SampleProject.Tests;
 [TestClass]
 public class WeatherComponentTests : Bunit.TestContext
 {
+    // The Weather component has a 500ms delay in OnInitializedAsync
+    // We wait slightly longer to ensure initialization completes
+    private const int ComponentInitializationDelayMs = 600;
+
     [TestMethod]
     public void Weather_InitiallyShowsLoadingMessage()
     {
@@ -24,7 +28,7 @@ public class WeatherComponentTests : Bunit.TestContext
         var cut = RenderComponent<Weather>();
 
         // Act - Wait for the async initialization to complete
-        await Task.Delay(600);
+        await Task.Delay(ComponentInitializationDelayMs);
         cut.WaitForState(() => cut.FindAll("table tbody tr").Count > 0, TimeSpan.FromSeconds(2));
 
         // Assert
@@ -61,7 +65,7 @@ public class WeatherComponentTests : Bunit.TestContext
         var cut = RenderComponent<Weather>();
 
         // Act - Wait for the async initialization
-        await Task.Delay(600);
+        await Task.Delay(ComponentInitializationDelayMs);
         cut.WaitForState(() => cut.FindAll("table").Count > 0, TimeSpan.FromSeconds(2));
 
         // Assert
@@ -80,7 +84,7 @@ public class WeatherComponentTests : Bunit.TestContext
         var cut = RenderComponent<Weather>();
 
         // Act - Wait for the async initialization
-        await Task.Delay(600);
+        await Task.Delay(ComponentInitializationDelayMs);
         cut.WaitForState(() => cut.FindAll("table").Count > 0, TimeSpan.FromSeconds(2));
 
         // Assert
@@ -95,7 +99,7 @@ public class WeatherComponentTests : Bunit.TestContext
         var cut = RenderComponent<Weather>();
 
         // Act - Wait for the async initialization
-        await Task.Delay(600);
+        await Task.Delay(ComponentInitializationDelayMs);
         cut.WaitForState(() => cut.FindAll("table tbody tr").Count > 0, TimeSpan.FromSeconds(2));
 
         // Assert

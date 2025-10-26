@@ -27,16 +27,4 @@ public class HomeComponentTests : Bunit.TestContext
         var content = cut.Markup;
         Assert.IsTrue(content.Contains("Welcome to your new app."));
     }
-
-    [TestMethod]
-    public void Home_RendersCorrectly()
-    {
-        // Arrange & Act
-        var cut = RenderComponent<Home>();
-
-        // Assert
-        var markup = cut.Markup;
-        Assert.IsTrue(markup.Contains("Hello, world!"));
-        Assert.IsTrue(markup.Contains("Welcome to your new app."));
-    }
 }
