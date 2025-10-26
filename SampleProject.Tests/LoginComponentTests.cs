@@ -127,7 +127,7 @@ public class LoginComponentTests : Bunit.TestContext
     {
         // Arrange
         var cut = RenderComponent<Login>();
-        JSInterop.SetupVoid("alert", "Password confirmed");
+        JSInterop.SetupVoid("alert", "Login successful");
         var usernameInput = cut.Find("#username");
         var passwordInput = cut.Find("#password");
         var button = cut.Find("button");

@@ -37,6 +37,12 @@
         var configUsername = Configuration["Authentication:Username"];
         var configPassword = Configuration["Authentication:Password"];
 
+        if (string.IsNullOrEmpty(configUsername) || string.IsNullOrEmpty(configPassword))
+        {
+            errorMessage = "Authentication configuration is missing.";
+            return;
+        }
+
         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
         {
             errorMessage = "Username and password are required.";
@@ -46,7 +52,7 @@
         if (username == configUsername && password == configPassword)
         {
             errorMessage = "";
-            await JSRuntime.InvokeVoidAsync("alert", "Password confirmed");
+            await JSRuntime.InvokeVoidAsync("alert", "Login successful");
         }
         else
         {
