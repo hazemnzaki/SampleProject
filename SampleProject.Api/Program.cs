@@ -17,6 +17,9 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+var logger = app.Services.GetRequiredService<ILogger<Program>>();
+logger.LogInformation("SampleProject.Api application starting up");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -25,16 +28,29 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors();
 
-app.MapPost("/api/authenticate", (AuthenticationRequest request) =>
+app.MapPost("/api/authenticate", (AuthenticationRequest request, ILogger<Program> logger) =>
 {
+    logger.LogInformation("Authentication attempt for username: {Username}", request.Username);
+    
     const string validUsername = "admin";
     const string validPassword = "123456";
     
     var isValid = request.Username == validUsername && request.Password == validPassword;
     
+    if (isValid)
+    {
+        logger.LogInformation("Authentication successful for username: {Username}", request.Username);
+    }
+    else
+    {
+        logger.LogWarning("Authentication failed for username: {Username}", request.Username);
+    }
+    
     return Results.Ok(new AuthenticationResponse { IsValid = isValid });
 })
 .WithName("Authenticate");
+
+logger.LogInformation("SampleProject.Api application started");
 
 app.Run();
 

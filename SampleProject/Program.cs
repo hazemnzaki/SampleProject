@@ -17,6 +17,9 @@ builder.Services.AddHttpClient("AuthApi", client =>
 
 var app = builder.Build();
 
+var logger = app.Services.GetRequiredService<ILogger<Program>>();
+logger.LogInformation("SampleProject application starting up");
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -32,5 +35,7 @@ app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
+
+logger.LogInformation("SampleProject application started");
 
 app.Run();
