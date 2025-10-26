@@ -1,6 +1,7 @@
 @page "/login"
 @inject IConfiguration Configuration
 @inject IJSRuntime JSRuntime
+@inject IHttpClientFactory HttpClientFactory
 @rendermode InteractiveServer
 
 <PageTitle>Login</PageTitle>
@@ -34,18 +35,70 @@
 
     private async Task ValidateCredentials()
     {
+        if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+        {
+            errorMessage = "Username and password are required.";
+            return;
+        }
+
+        var useApi = Configuration.GetValue<bool>("Authentication:UseApi");
+
+        if (useApi)
+        {
+            await ValidateWithApi();
+        }
+        else
+        {
+            await ValidateWithConfig();
+        }
+    }
+
+    private async Task ValidateWithApi()
+    {
+        try
+        {
+            var httpClient = HttpClientFactory.CreateClient("AuthApi");
+            var request = new SampleProject.Models.AuthenticationRequest
+            {
+                Username = username,
+                Password = password
+            };
+
+            var response = await httpClient.PostAsJsonAsync("/api/authenticate", request);
+            
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<SampleProject.Models.AuthenticationResponse>();
+                
+                if (result?.IsValid == true)
+                {
+                    errorMessage = "";
+                    await JSRuntime.InvokeVoidAsync("alert", "Login successful");
+                }
+                else
+                {
+                    errorMessage = "Username or password is not right.";
+                }
+            }
+            else
+            {
+                errorMessage = "Authentication service is unavailable.";
+            }
+        }
+        catch (Exception)
+        {
+            errorMessage = "Authentication service is unavailable.";
+        }
+    }
+
+    private async Task ValidateWithConfig()
+    {
         var configUsername = Configuration["Authentication:Username"];
         var configPassword = Configuration["Authentication:Password"];
 
         if (string.IsNullOrEmpty(configUsername) || string.IsNullOrEmpty(configPassword))
         {
             errorMessage = "Authentication configuration is missing.";
-            return;
-        }
-
-        if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
-        {
-            errorMessage = "Username and password are required.";
             return;
         }
 
