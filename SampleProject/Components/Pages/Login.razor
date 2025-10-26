@@ -1,0 +1,69 @@
+@page "/login"
+@inject IConfiguration Configuration
+@inject IJSRuntime JSRuntime
+@rendermode InteractiveServer
+
+<PageTitle>Login</PageTitle>
+
+<h1>Login</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" @bind="username" />
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" @bind="password" />
+        </div>
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="alert alert-danger" role="alert">
+                @errorMessage
+            </div>
+        }
+        <button class="btn btn-primary" @onclick="ValidateCredentials">Login</button>
+    </div>
+</div>
+
+@code {
+    private string username = "";
+    private string password = "";
+    private string errorMessage = "";
+
+    private async Task ValidateCredentials()
+    {
+        var configUsername = Configuration["Authentication:Username"];
+        var configPassword = Configuration["Authentication:Password"];
+
+        if (string.IsNullOrEmpty(configUsername) || string.IsNullOrEmpty(configPassword))
+        {
+            errorMessage = "Authentication configuration is missing.";
+            return;
+        }
+
+        if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+        {
+            errorMessage = "Username and password are required.";
+            return;
+        }
+
+        if (username == configUsername && password == configPassword)
+        {
+            errorMessage = "";
+            await JSRuntime.InvokeVoidAsync("alert", "Login successful");
+        }
+        else
+        {
+            if (username != configUsername)
+            {
+                errorMessage = "Username is not right.";
+            }
+            else
+            {
+                errorMessage = "Password is not right.";
+            }
+        }
+    }
+}
