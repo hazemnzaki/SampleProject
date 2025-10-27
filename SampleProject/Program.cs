@@ -1,10 +1,13 @@
 using SampleProject.Components;
+using SampleProject.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddScoped<UserSessionService>();
 
 builder.Services.AddHttpClient("AuthApi", client =>
 {

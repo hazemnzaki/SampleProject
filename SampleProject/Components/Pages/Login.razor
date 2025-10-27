@@ -3,6 +3,8 @@
 @inject IJSRuntime JSRuntime
 @inject IHttpClientFactory HttpClientFactory
 @inject ILogger<Login> Logger
+@inject NavigationManager NavigationManager
+@inject SampleProject.Services.UserSessionService UserSession
 @rendermode InteractiveServer
 
 <PageTitle>Login</PageTitle>
@@ -80,7 +82,8 @@
                 {
                     errorMessage = "";
                     Logger.LogInformation("Login successful via API for username: {Username}", username);
-                    await JSRuntime.InvokeVoidAsync("alert", "Login successful");
+                    UserSession.SetUsername(username);
+                    NavigationManager.NavigateTo("/");
                 }
                 else
                 {
@@ -101,7 +104,7 @@
         }
     }
 
-    private async Task ValidateWithConfig()
+    private Task ValidateWithConfig()
     {
         Logger.LogInformation("Validating credentials with config for username: {Username}", username);
         
@@ -112,14 +115,15 @@
         {
             errorMessage = "Authentication configuration is missing.";
             Logger.LogError("Authentication configuration is missing");
-            return;
+            return Task.CompletedTask;
         }
 
         if (username == configUsername && password == configPassword)
         {
             errorMessage = "";
             Logger.LogInformation("Login successful via config for username: {Username}", username);
-            await JSRuntime.InvokeVoidAsync("alert", "Login successful");
+            UserSession.SetUsername(username);
+            NavigationManager.NavigateTo("/");
         }
         else
         {
@@ -134,5 +138,7 @@
                 Logger.LogWarning("Login failed: incorrect password for username: {Username}", username);
             }
         }
+        
+        return Task.CompletedTask;
     }
 }

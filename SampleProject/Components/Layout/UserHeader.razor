@@ -1,0 +1,8 @@
+@inject SampleProject.Services.UserSessionService UserSession
+
+@if (UserSession.IsLoggedIn)
+{
+    <div class="user-header alert alert-info mb-3" role="alert">
+        <strong>Logged in as:</strong> @UserSession.Username
+    </div>
+}
