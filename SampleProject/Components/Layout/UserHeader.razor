@@ -1,8 +1,22 @@
 @inject SampleProject.Services.UserSessionService UserSession
+@implements IDisposable
+@rendermode InteractiveServer
 
 @if (UserSession.IsLoggedIn)
 {
     <div class="user-header alert alert-info mb-3" role="alert">
         <strong>Logged in as:</strong> @UserSession.Username
     </div>
+}
+
+@code {
+    protected override void OnInitialized()
+    {
+        UserSession.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        UserSession.OnChange -= StateHasChanged;
+    }
 }
