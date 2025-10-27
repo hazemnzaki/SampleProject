@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SampleProject.Components.Pages;
+using SampleProject.Services;
 
 namespace SampleProject.Tests;
 
@@ -28,6 +29,7 @@ public class LoginLoggingTests : Bunit.TestContext
 
         Services.AddSingleton(configuration);
         Services.AddHttpClient("AuthApi");
+        Services.AddScoped<UserSessionService>();
         Services.AddLogging(builder =>
         {
             builder.AddProvider(_loggerProvider);

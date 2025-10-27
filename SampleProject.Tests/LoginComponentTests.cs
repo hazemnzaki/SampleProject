@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using SampleProject.Components.Pages;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net.Http;
+using SampleProject.Services;
+using Microsoft.AspNetCore.Components;
 
 namespace SampleProject.Tests;
 
@@ -24,6 +26,7 @@ public class LoginComponentTests : Bunit.TestContext
 
         Services.AddSingleton(configuration);
         Services.AddHttpClient("AuthApi");
+        Services.AddScoped<UserSessionService>();
     }
 
     [TestMethod]
@@ -129,8 +132,8 @@ public class LoginComponentTests : Bunit.TestContext
     public void Login_CorrectCredentials_NoError()
     {
         // Arrange
+        var navManager = Services.GetRequiredService<NavigationManager>();
         var cut = RenderComponent<Login>();
-        JSInterop.SetupVoid("alert", "Login successful");
         var usernameInput = cut.Find("#username");
         var passwordInput = cut.Find("#password");
         var button = cut.Find("button");
@@ -143,6 +146,9 @@ public class LoginComponentTests : Bunit.TestContext
         // Assert - no error message should be displayed
         var errorMessages = cut.FindAll(".alert-danger");
         Assert.AreEqual(0, errorMessages.Count);
+        
+        // Assert - should navigate to home page
+        Assert.IsTrue(navManager.Uri.EndsWith("/"));
     }
 
     [TestMethod]
