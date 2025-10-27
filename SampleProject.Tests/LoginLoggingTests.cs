@@ -67,7 +67,7 @@ public class LoginLoggingTests : Bunit.TestContext
 
         // Assert
         var logs = _loggerProvider!.GetLogs();
-        Assert.IsTrue(logs.Any(l => l.Contains("Login failed: empty credentials")), 
+        Assert.IsTrue(logs.Any(l => l.Contains("Login failed: empty credentials for username")), 
             "Should log warning for empty credentials");
     }
 
@@ -128,7 +128,7 @@ public class LoginLoggingTests : Bunit.TestContext
 
         // Assert
         var logs = _loggerProvider!.GetLogs();
-        Assert.IsTrue(logs.Any(l => l.Contains("Login failed: incorrect password")), 
+        Assert.IsTrue(logs.Any(l => l.Contains("Login failed: incorrect password for username")), 
             "Should log warning for incorrect password");
     }
 }
