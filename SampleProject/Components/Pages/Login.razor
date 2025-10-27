@@ -2,6 +2,7 @@
 @inject IConfiguration Configuration
 @inject IJSRuntime JSRuntime
 @inject IHttpClientFactory HttpClientFactory
+@inject ILogger<Login> Logger
 @rendermode InteractiveServer
 
 <PageTitle>Login</PageTitle>
@@ -35,9 +36,12 @@
 
     private async Task ValidateCredentials()
     {
+        Logger.LogInformation("Login attempt for username: {Username}", username);
+        
         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
         {
             errorMessage = "Username and password are required.";
+            Logger.LogWarning("Login failed: empty credentials for username: {Username}", username);
             return;
         }
 
@@ -55,6 +59,8 @@
 
     private async Task ValidateWithApi()
     {
+        Logger.LogInformation("Validating credentials with API for username: {Username}", username);
+        
         try
         {
             var httpClient = HttpClientFactory.CreateClient("AuthApi");
@@ -73,38 +79,46 @@
                 if (result?.IsValid == true)
                 {
                     errorMessage = "";
+                    Logger.LogInformation("Login successful via API for username: {Username}", username);
                     await JSRuntime.InvokeVoidAsync("alert", "Login successful");
                 }
                 else
                 {
                     errorMessage = "Username or password is not right.";
+                    Logger.LogWarning("Login failed via API for username: {Username}", username);
                 }
             }
             else
             {
                 errorMessage = "Authentication service is unavailable.";
+                Logger.LogError("Authentication API returned unsuccessful status code: {StatusCode}", response.StatusCode);
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             errorMessage = "Authentication service is unavailable.";
+            Logger.LogError(ex, "Error calling authentication API for username: {Username}", username);
         }
     }
 
     private async Task ValidateWithConfig()
     {
+        Logger.LogInformation("Validating credentials with config for username: {Username}", username);
+        
         var configUsername = Configuration["Authentication:Username"];
         var configPassword = Configuration["Authentication:Password"];
 
         if (string.IsNullOrEmpty(configUsername) || string.IsNullOrEmpty(configPassword))
         {
             errorMessage = "Authentication configuration is missing.";
+            Logger.LogError("Authentication configuration is missing");
             return;
         }
 
         if (username == configUsername && password == configPassword)
         {
             errorMessage = "";
+            Logger.LogInformation("Login successful via config for username: {Username}", username);
             await JSRuntime.InvokeVoidAsync("alert", "Login successful");
         }
         else
@@ -112,10 +126,12 @@
             if (username != configUsername)
             {
                 errorMessage = "Username is not right.";
+                Logger.LogWarning("Login failed: incorrect username {Username}", username);
             }
             else
             {
                 errorMessage = "Password is not right.";
+                Logger.LogWarning("Login failed: incorrect password for username: {Username}", username);
             }
         }
     }
