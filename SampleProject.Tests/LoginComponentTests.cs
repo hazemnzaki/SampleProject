@@ -27,6 +27,7 @@ public class LoginComponentTests : Bunit.TestContext
         Services.AddSingleton(configuration);
         Services.AddHttpClient("AuthApi");
         Services.AddScoped<UserSessionService>();
+        Services.AddLocalization();
     }
 
     [TestMethod]

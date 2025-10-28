@@ -1,4 +1,5 @@
 using Bunit;
+using Microsoft.Extensions.DependencyInjection;
 using SampleProject.Components.Pages;
 
 namespace SampleProject.Tests;
@@ -9,6 +10,12 @@ public class WeatherComponentTests : Bunit.TestContext
     // The Weather component has a 500ms delay in OnInitializedAsync
     // We wait slightly longer to ensure initialization completes
     private const int ComponentInitializationDelayMs = 600;
+
+    [TestInitialize]
+    public void Setup()
+    {
+        Services.AddLocalization();
+    }
 
     [TestMethod]
     public void Weather_InitiallyShowsLoadingMessage()

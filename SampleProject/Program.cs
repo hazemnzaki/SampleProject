@@ -7,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.Services.AddLocalization();
+
 builder.Services.AddScoped<UserSessionService>();
 
 builder.Services.AddHttpClient("AuthApi", client =>

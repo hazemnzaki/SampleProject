@@ -1,7 +1,8 @@
 ﻿@page "/"
+@inject IStringLocalizer<SharedResources> Localizer
 
-<PageTitle>Home</PageTitle>
+<PageTitle>@Localizer["Home_PageTitle"]</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>@Localizer["Home_HelloWorld"]</h1>
 
-Welcome to your new app.
+@Localizer["Home_WelcomeMessage"]

@@ -1,4 +1,5 @@
 @page "/login"
+@inject IStringLocalizer<SharedResources> Localizer
 @inject IConfiguration Configuration
 @inject IJSRuntime JSRuntime
 @inject IHttpClientFactory HttpClientFactory
@@ -7,18 +8,18 @@
 @inject SampleProject.Services.UserSessionService UserSession
 @rendermode InteractiveServer
 
-<PageTitle>Login</PageTitle>
+<PageTitle>@Localizer["Login_PageTitle"]</PageTitle>
 
-<h1>Login</h1>
+<h1>@Localizer["Login_Heading"]</h1>
 
 <div class="row">
     <div class="col-md-4">
         <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
+            <label for="username" class="form-label">@Localizer["Login_Username"]</label>
             <input type="text" class="form-control" id="username" @bind="username" />
         </div>
         <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
+            <label for="password" class="form-label">@Localizer["Login_Password"]</label>
             <input type="password" class="form-control" id="password" @bind="password" />
         </div>
         @if (!string.IsNullOrEmpty(errorMessage))
@@ -27,7 +28,7 @@
                 @errorMessage
             </div>
         }
-        <button class="btn btn-primary" @onclick="ValidateCredentials">Login</button>
+        <button class="btn btn-primary" @onclick="ValidateCredentials">@Localizer["Login_Button"]</button>
     </div>
 </div>
 
@@ -42,7 +43,7 @@
         
         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
         {
-            errorMessage = "Username and password are required.";
+            errorMessage = Localizer["Login_CredentialsRequired"];
             Logger.LogWarning("Login failed: empty credentials for username: {Username}", username);
             return;
         }
@@ -87,19 +88,19 @@
                 }
                 else
                 {
-                    errorMessage = "Username or password is not right.";
+                    errorMessage = Localizer["Login_InvalidCredentials"];
                     Logger.LogWarning("Login failed via API for username: {Username}", username);
                 }
             }
             else
             {
-                errorMessage = "Authentication service is unavailable.";
+                errorMessage = Localizer["Login_ServiceUnavailable"];
                 Logger.LogError("Authentication API returned unsuccessful status code: {StatusCode}", response.StatusCode);
             }
         }
         catch (Exception ex)
         {
-            errorMessage = "Authentication service is unavailable.";
+            errorMessage = Localizer["Login_ServiceUnavailable"];
             Logger.LogError(ex, "Error calling authentication API for username: {Username}", username);
         }
     }
@@ -113,7 +114,7 @@
 
         if (string.IsNullOrEmpty(configUsername) || string.IsNullOrEmpty(configPassword))
         {
-            errorMessage = "Authentication configuration is missing.";
+            errorMessage = Localizer["Login_ConfigurationMissing"];
             Logger.LogError("Authentication configuration is missing");
             return Task.CompletedTask;
         }
@@ -129,12 +130,12 @@
         {
             if (username != configUsername)
             {
-                errorMessage = "Username is not right.";
+                errorMessage = Localizer["Login_UsernameIncorrect"];
                 Logger.LogWarning("Login failed: incorrect username {Username}", username);
             }
             else
             {
-                errorMessage = "Password is not right.";
+                errorMessage = Localizer["Login_PasswordIncorrect"];
                 Logger.LogWarning("Login failed: incorrect password for username: {Username}", username);
             }
         }

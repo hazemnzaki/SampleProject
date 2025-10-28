@@ -1,11 +1,20 @@
 using Bunit;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 using SampleProject.Components.Pages;
+using SampleProject.Resources;
 
 namespace SampleProject.Tests;
 
 [TestClass]
 public class HomeComponentTests : Bunit.TestContext
 {
+    [TestInitialize]
+    public void Setup()
+    {
+        Services.AddLocalization();
+    }
+
     [TestMethod]
     public void Home_DisplaysCorrectHeading()
     {

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <!-- Home Page -->
+  <data name="Home_PageTitle" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Home_HelloWorld" xml:space="preserve">
+    <value>Hello, world!</value>
+  </data>
+  <data name="Home_WelcomeMessage" xml:space="preserve">
+    <value>Welcome to your new app.</value>
+  </data>
+  <!-- Counter Page -->
+  <data name="Counter_PageTitle" xml:space="preserve">
+    <value>Counter</value>
+  </data>
+  <data name="Counter_Heading" xml:space="preserve">
+    <value>Counter</value>
+  </data>
+  <data name="Counter_CurrentCount" xml:space="preserve">
+    <value>Current count: {0}</value>
+  </data>
+  <data name="Counter_ClickMe" xml:space="preserve">
+    <value>Click me</value>
+  </data>
+  <!-- Weather Page -->
+  <data name="Weather_PageTitle" xml:space="preserve">
+    <value>Weather</value>
+  </data>
+  <data name="Weather_Heading" xml:space="preserve">
+    <value>Weather</value>
+  </data>
+  <data name="Weather_Description" xml:space="preserve">
+    <value>This component demonstrates showing data.</value>
+  </data>
+  <data name="Weather_Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="Weather_Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Weather_TempC" xml:space="preserve">
+    <value>Temp. (C)</value>
+  </data>
+  <data name="Weather_TempF" xml:space="preserve">
+    <value>Temp. (F)</value>
+  </data>
+  <data name="Weather_Summary" xml:space="preserve">
+    <value>Summary</value>
+  </data>
+  <!-- Login Page -->
+  <data name="Login_PageTitle" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Login_Heading" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Login_Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="Login_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Login_Button" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Login_CredentialsRequired" xml:space="preserve">
+    <value>Username and password are required.</value>
+  </data>
+  <data name="Login_InvalidCredentials" xml:space="preserve">
+    <value>Username or password is not right.</value>
+  </data>
+  <data name="Login_ServiceUnavailable" xml:space="preserve">
+    <value>Authentication service is unavailable.</value>
+  </data>
+  <data name="Login_ConfigurationMissing" xml:space="preserve">
+    <value>Authentication configuration is missing.</value>
+  </data>
+  <data name="Login_UsernameIncorrect" xml:space="preserve">
+    <value>Username is not right.</value>
+  </data>
+  <data name="Login_PasswordIncorrect" xml:space="preserve">
+    <value>Password is not right.</value>
+  </data>
+  <!-- Navigation Menu -->
+  <data name="Nav_SampleProject" xml:space="preserve">
+    <value>SampleProject</value>
+  </data>
+  <data name="Nav_NavigationMenu" xml:space="preserve">
+    <value>Navigation menu</value>
+  </data>
+  <data name="Nav_Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Nav_Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Nav_Counter" xml:space="preserve">
+    <value>Counter</value>
+  </data>
+  <data name="Nav_Weather" xml:space="preserve">
+    <value>Weather</value>
+  </data>
+  <!-- Main Layout -->
+  <data name="Layout_About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Layout_ErrorOccurred" xml:space="preserve">
+    <value>An unhandled error has occurred.</value>
+  </data>
+  <data name="Layout_Reload" xml:space="preserve">
+    <value>Reload</value>
+  </data>
+  <!-- User Header -->
+  <data name="UserHeader_LoggedInAs" xml:space="preserve">
+    <value>Logged in as:</value>
+  </data>
+</root>

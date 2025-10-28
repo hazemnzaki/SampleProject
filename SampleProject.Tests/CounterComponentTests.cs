@@ -1,4 +1,5 @@
 using Bunit;
+using Microsoft.Extensions.DependencyInjection;
 using SampleProject.Components.Pages;
 
 namespace SampleProject.Tests;
@@ -6,6 +7,12 @@ namespace SampleProject.Tests;
 [TestClass]
 public class CounterComponentTests : Bunit.TestContext
 {
+    [TestInitialize]
+    public void Setup()
+    {
+        Services.AddLocalization();
+    }
+
     [TestMethod]
     public void Counter_InitialCountIsZero()
     {
