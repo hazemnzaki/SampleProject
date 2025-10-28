@@ -8,6 +8,12 @@ namespace SampleProject.Tests;
 [TestClass]
 public class UserHeaderComponentTests : Bunit.TestContext
 {
+    [TestInitialize]
+    public void Setup()
+    {
+        Services.AddLocalization();
+    }
+
     [TestMethod]
     public void UserHeader_NoUserLoggedIn_DisplaysNothing()
     {
